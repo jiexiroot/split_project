@@ -1,0 +1,5 @@
+# Project exclude paths
+/ssm_controller/target/
+/ssm_dao/target/
+/ssm_pojo/target/
+/ssm_service/target/

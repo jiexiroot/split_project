@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.jiexi</groupId>
+    <artifactId>ssm</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <!--定义该工程用于进行构建管理-->
+    <packaging>pom</packaging>
+
+    <!--管理的工程列表-->
+    <modules>
+        <!--具体的工程名称-->
+        <module>../ssm_pojo</module>
+        <module>../ssm_dao</module>
+        <module>../ssm_service</module>
+        <module>../ssm_controller</module>
+    </modules>
+
+    <!--创建多环境-->
+    <profiles>
+        <!--定义具体的环境：生产环境-->
+        <profile>
+            <!--定义环境的唯一名称-->
+            <id>pro_env</id>
+            <!--定义环境中专用的属性值-->
+            <properties>
+                <jdbc.url>jdbc:mysql://localhost:3306/ssm_db?useSSL=false&amp;serverTimezone=Asia/Shanghai</jdbc.url>
+            </properties>
+        </profile>
+
+        <!--定义具体的环境：开发环境-->
+        <profile>
+            <!--定义环境的唯一名称-->
+            <id>dep_env</id>
+            <!--定义环境中专用的属性值-->
+            <properties>
+                <jdbc.url>jdbc:mysql://localhost:3306/ssm_db?useSSL=false&amp;serverTimezone=Asia/Shanghai</jdbc.url>
+            </properties>
+            <!--设置默认启动-->
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+    </profiles>
+
+    <!--定义自定义属性-->
+    <properties>
+        <spiring.version>5.1.9.RELEASE</spiring.version>
+        <junit.version>4.12</junit.version>
+        <jdbc.url>jdbc:mysql://localhost:3306/ssm_db?useSSL=false&amp;serverTimezone=Asia/Shanghai</jdbc.url>
+    </properties>
+
+
+    <!--声明此处进行依赖管理-->
+    <dependencyManagement>
+
+        <!--具体的依赖-->
+        <dependencies>
+            <!--添加自己的工程模块依赖-->
+            <dependency>
+                <groupId>com.jiexi</groupId>
+                <artifactId>ssm_pojo</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.jiexi</groupId>
+                <artifactId>ssm_dao</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <!--导入service层jar包-->
+            <dependency>
+                <groupId>com.jiexi</groupId>
+                <artifactId>ssm_service</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <!--spring环境-->
+            <!--spring环境-->
+            <!--spring环境-->
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-context</artifactId>
+                <version>${spiring.version}</version>
+            </dependency>
+
+
+            <!--mybatis环境-->
+            <!--mybatis环境-->
+            <!--mybatis环境-->
+            <dependency>
+                <groupId>org.mybatis</groupId>
+                <artifactId>mybatis</artifactId>
+                <version>3.5.3</version>
+            </dependency>
+            <!--mysql环境-->
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>8.0.16</version>
+            </dependency>
+            <!--spring整合jdbc-->
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-jdbc</artifactId>
+                <version>${spiring.version}</version>
+            </dependency>
+            <!--spring整合mybatis-->
+            <dependency>
+                <groupId>org.mybatis</groupId>
+                <artifactId>mybatis-spring</artifactId>
+                <version>2.0.3</version>
+            </dependency>
+            <!--druid连接池-->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid</artifactId>
+                <version>1.1.16</version>
+            </dependency>
+            <!--分页插件坐标-->
+            <dependency>
+                <groupId>com.github.pagehelper</groupId>
+                <artifactId>pagehelper</artifactId>
+                <version>5.1.2</version>
+            </dependency>
+
+
+            <!--springmvc环境-->
+            <!--springmvc环境-->
+            <!--springmvc环境-->
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-webmvc</artifactId>
+                <version>${spiring.version}</version>
+            </dependency>
+            <!--jackson相关坐标3个-->
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-databind</artifactId>
+                <version>2.9.0</version>
+            </dependency>
+            <!--servlet环境-->
+            <dependency>
+                <groupId>javax.servlet</groupId>
+                <artifactId>javax.servlet-api</artifactId>
+                <version>3.1.0</version>
+                <scope>provided</scope>
+            </dependency>
+
+
+            <!--其他组件-->
+            <!--其他组件-->
+            <!--其他组件-->
+            <!--junit单元测试-->
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>${junit.version}</version>
+            </dependency>
+            <!--spring整合junit-->
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-test</artifactId>
+                <version>${spiring.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+
+
+
+    <build>
+        <pluginManagement>
+            <!--设置插件-->
+            <plugins>
+                <!--具体的插件配置-->
+                <plugin>
+                    <groupId>org.apache.tomcat.maven</groupId>
+                    <artifactId>tomcat7-maven-plugin</artifactId>
+                    <version>2.1</version>
+                    <configuration>
+                        <port>80</port>
+                        <path>/</path>
+                    </configuration>
+                </plugin>
+                <!--跳过单元测试-->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>2.12.4</version>
+                    <!--<configuration>-->
+                    <!--    <skip>false</skip>-->
+                    <!--</configuration>-->
+                    <configuration>
+                        <!--包含与排除用例-->
+                        <includes>
+                            <include>**/User*Test.java</include>
+                        </includes>
+
+                        <excludes>
+                        </excludes>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+        <!--配置资源文件对应的信息-->
+        <resources>
+            <resource>
+                <!--${project.basedir}项目的基本路径-->
+                <directory>${project.basedir}/src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+        <!--配置测试资源文件对应的信息-->
+        <testResources>
+            <testResource>
+                <!--${project.basedir}项目的基本路径-->
+                <directory>${project.basedir}/test/main/resources</directory>
+                <filtering>true</filtering>
+            </testResource>
+        </testResources>
+    </build>
+
+    <!--发布配置管理-->
+    <distributionManagement>
+        <repository>
+            <id>jiexi-Release</id>
+            <url>http://localhost:8081/repository/jiexi-release/</url>
+        </repository>
+        <snapshotRepository>
+            <id>jiexi-snapshots</id>
+            <url>http://localhost:8081/repository/jiexi-snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
+
+</project>
